@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1727">
+<title>无尽冬日 · 堡垒要塞报名计算器（联盟可选）</title>
+<style>
+:root{color-scheme:dark;--bg:#081323;--panel:#142238;--panel2:#1b3048;--border:#2d465f;--txt:#eef5ff;--muted:#a5b9cc;--cyan:#64d9ed;--gold:#f5d38f;--green:#a0e8c7;--red:#ffadb6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 95% 0%,#244a64,transparent 48%),var(--bg);color:var(--txt);font:15px/1.48 system-ui,-apple-system,"Microsoft Yahei","PingFang SC",sans-serif}
+main{max-width:1120px;margin:0 auto;padding:26px 18px 45px}h1{margin:0 0 6px;font-size:clamp(24px,3vw,32px);letter-spacing:.25px}h2{font-size:19px;margin:0 0 18px;font-weight:750}header{padding:4px 0 21px}.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{border:1px solid #38607b;border-radius:50px;background:#19324b;color:#cdeaf8;padding:4px 11px;font-size:12px;font-variant-numeric:tabular-nums}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:17px;padding:20px;margin-bottom:16px;box-shadow:0 5px 22px #030b1820}.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.sectionhead h2{margin-bottom:14px}
+input,select,button{font:inherit}input,select{background:#0b1c2d;color:var(--txt);border:1px solid #46627f;border-radius:9px;padding:10px 11px;min-width:0;max-width:100%;width:100%}select{cursor:pointer}input:focus,select:focus,button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}button{cursor:pointer;border:1px solid #42627a;border-radius:9px;padding:9px 14px;background:#23415a;color:var(--txt)}button:hover{filter:brightness(1.13)}.tiny{font-size:12px;padding:6px 10px}.toolbar{display:flex;gap:8px;flex-wrap:wrap}label{display:block;font-size:13px;color:#c2d6e8;margin-bottom:5px}
+.roundrow{max-width:300px}.names{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:13px 12px}.names .major label{color:var(--gold);font-weight:750}
+.nameBox{padding:9px;background:#172b41;border:1px solid #344b62;border-radius:11px}.nameBox.isOff{opacity:.6;background:#101d2d}.nameRow{display:flex;gap:7px;align-items:center}.nameRow input{flex:1;width:0}.nameRow select{flex:0 0 65px;width:65px;padding:10px 6px;text-align:center}.nameBox.isOff input{text-decoration:line-through}.activeCounter{font-size:12px;color:var(--muted);font-weight:500;margin-left:8px}
+.inactiveOwner{border-color:#b56c76!important;color:#ffbdc6!important}.targetGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.targetItem{display:grid;grid-template-columns:minmax(70px,1fr) minmax(125px,1.6fr);align-items:center;gap:10px;padding:10px 12px;background:#1b3047;border:1px solid #304b64;border-radius:11px}.targetItem.major{background:#22384c}.targetName{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.targetName.major{color:var(--gold)}.targetItem select{padding:8px}
+.tableWrap{border:1px solid var(--border);border-radius:12px;overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left}th,td{padding:11px 14px;vertical-align:middle;border-bottom:1px solid #2a4158}th{font-size:13px;color:#c5dbeb;background:#213750;font-weight:700}tbody tr:last-child td{border-bottom:0}.buildingTable{min-width:620px}.buildingTable th:nth-child(1){width:22%}.buildingTable th:nth-child(2),.buildingTable th:nth-child(3){width:39%}.buildingTable td select{max-width:350px}.groupRow th{background:#122a40;color:var(--cyan);font-size:13px;padding:9px 14px;border-top:1px solid #38556f}.selectWrap{display:flex;gap:6px;align-items:center}.selectWrap select{flex:1}.reset{min-width:32px;width:32px;height:39px;flex-shrink:0;padding:0;text-align:center;font-size:19px;line-height:1}.reset.hidden{visibility:hidden}.baseEmpty{color:var(--muted);font-size:13px}
+#generate{display:block;width:100%;border:1px solid #72e7f2;border-radius:17px;background:linear-gradient(110deg,#087e9d,#12a0b3);box-shadow:0 10px 30px #00678944;font-size:23px;font-weight:800;letter-spacing:1px;padding:19px 16px;margin:10px 0 20px;color:white}#generate:hover{filter:brightness(1.1);transform:translateY(-1px)}#results{scroll-margin-top:12px}#results[hidden]{display:none}#results .panel{border-color:#42617b}.tableScroll{overflow-x:auto}.planTable{min-width:510px}.planTable td:nth-child(1){width:21%;font-weight:700}.planTable td:nth-child(2){width:31%}.planTable td:nth-child(3){font-variant-numeric:tabular-nums;color:#f6d89c;font-weight:600;letter-spacing:.15px}.planTable tr.major td:first-child{color:var(--gold)}.stronghold{color:#a8d7f0}.fine{color:var(--muted)}.statusGrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.statusBox{background:#102338;border:1px solid #304e67;border-radius:13px;overflow:hidden}.statusBox h3{font-size:16px;margin:0;padding:13px 15px;background:#20364d;display:flex;justify-content:space-between;align-items:center}.confirmed h3{color:var(--green)}.uncertain h3{color:var(--red)}.count{font-size:13px;color:var(--muted)}.statusList{padding:7px 14px}.statusItem{padding:11px 1px;border-bottom:1px solid #2d435b;display:flex;align-items:baseline;justify-content:space-between;gap:10px}.statusItem:last-child{border:0}.statusName{font-weight:700}.statusTime{font-weight:600;color:var(--gold);white-space:nowrap}.reasons{font-size:12px;color:#ffc7cb;text-align:right;overflow-wrap:anywhere}.empty{color:var(--muted);padding:16px}.span2{min-width:0}.actions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:920px){.names{grid-template-columns:repeat(3,minmax(0,1fr))}.targetGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:630px){main{padding:16px 10px 32px}.panel{padding:14px;border-radius:13px}header{padding:6px 4px 16px}.names{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.names input{padding:8px}.nameRow select{padding:8px 4px;width:60px;flex-basis:60px}.nameBox{padding:7px}.targetGrid{grid-template-columns:1fr;gap:8px}.statusGrid{grid-template-columns:1fr}h2{font-size:17px;margin-bottom:13px}#generate{font-size:22px;padding:18px}.buildingTable{min-width:580px}.sectionhead .toolbar{margin-bottom:8px}}
+</style>
+</head>
+<body>
+<main>
+<header><h1>❄ 堡垒 / 要塞报名计算器</h1><div class="pills"><span class="pill">10:00</span><span class="pill">12:00</span><span class="pill">15:00</span><span class="pill">17:30</span><span class="pill">21:00</span></div></header>
+<section class="panel"><div class="sectionhead"><h2>① 当前期数</h2><div class="toolbar"><button type="button" class="tiny" onclick="exportConfig()">导出配置</button><button type="button" class="tiny" onclick="document.getElementById('configInput').click()">导入配置</button><input type="file" id="configInput" accept=".json,application/json" hidden onchange="importConfig(event)"></div></div><div class="roundrow"><select aria-label="当前期数" id="roundSelect" onchange="setRound(Number(this.value))"></select></div></section>
+<section class="panel"><h2>② 联盟名称 <span class="activeCounter" id="activeCount"></span></h2><div class="names" id="names"></div></section>
+<section class="panel"><h2>③ 目标时间</h2><div class="targetGrid" id="targets"></div></section>
+<section class="panel"><h2>④ 堡垒 / 要塞占领</h2><div class="tableWrap"><table class="buildingTable"><thead><tr><th>建筑</th><th>上期占领信息</th><th>本期占领盟</th></tr></thead><tbody id="buildings"></tbody></table></div></section>
+<button id="generate" type="button" onclick="calculate(true)">生成报名方案 ↗</button>
+<div id="results" hidden>
+<section class="panel"><div class="sectionhead"><h2>① 报名清单</h2><button type="button" class="tiny" onclick="copyPlan()">复制清单</button></div><div class="tableWrap"><table class="planTable"><thead><tr><th>联盟名称</th><th>报名建筑</th><th>报名时间（3选）</th></tr></thead><tbody id="planRows"></tbody></table></div></section>
+<section class="panel"><h2>② 时间确认情况</h2><div class="statusGrid"><div class="statusBox confirmed"><h3>确认时间盟 <span class="count" id="confirmedCount"></span></h3><div class="statusList" id="confirmed"></div></div><div class="statusBox uncertain"><h3>不确定时间盟 <span class="count" id="uncertainCount"></span></h3><div class="statusList" id="uncertain"></div></div></div></section>
+</div>
+</main>
+<script>
+'use strict';
+const KEYS=['M','N','Y',...'ABCDEFGHIJKL'], MAJOR=new Set(['M','N','Y']);
+const TIMES=['10:00','12:00','15:00','17:30','21:00'];
+const BUILDINGS=[...Array.from({length:12},(_,i)=>({id:'F'+(i+1),name:(i+1)+'号堡垒',kind:'F'})),...Array.from({length:4},(_,i)=>({id:'S'+(i+1),name:(i+1)+'号要塞',kind:'S'}))];
+const STORE='ice_forts_planner_v5';
+function fresh(){return {v:5,names:Object.fromEntries(KEYS.map(k=>[k,k])),enabled:Object.fromEntries(KEYS.map(k=>[k,true])),round:1,rounds:Array.from({length:12},()=>Object.fromEntries(BUILDINGS.map(b=>[b.id,{prior:null,owner:null}]))),preferences:Array.from({length:12},()=>Object.fromEntries(KEYS.map(k=>[k,MAJOR.has(k)?({M:0,N:2,Y:4}[k]):'auto'])))};}
+function validOwner(v){return KEYS.includes(v)||v==='';}
+function normalize(src){const s=fresh();if(!src||typeof src!=='object')return s;
+ if(src.names)for(const k of KEYS)if(typeof src.names[k]==='string')s.names[k]=src.names[k].slice(0,70)||k;
+ if(src.enabled)for(const k of KEYS)if(typeof src.enabled[k]==='boolean')s.enabled[k]=src.enabled[k];
+ const modern=src.v===4||src.v===5;
+ if(Array.isArray(src.rounds))for(let r=0;r<12;r++)for(const b of BUILDINGS){const x=src.rounds[r]?.[b.id];if(!x)continue;
+  if(modern){s.rounds[r][b.id].prior=validOwner(x.prior)?x.prior:null;s.rounds[r][b.id].owner=validOwner(x.owner)?x.owner:null;}
+  else if(KEYS.includes(x.owner))s.rounds[r][b.id].owner=x.owner;
+ }
+ if(Array.isArray(src.preferences))for(let r=0;r<12;r++)for(const k of KEYS){const p=src.preferences[r]?.[k];if(p==='auto'&&!MAJOR.has(k))s.preferences[r][k]='auto';else if(p!==null&&p!==''&&Number.isInteger(+p)&&+p>=0&&+p<5)s.preferences[r][k]=+p;}
+ s.round=Math.min(12,Math.max(1,Number(src.round)||1));return s;
+}
+let state;
+try{let raw=localStorage.getItem(STORE)||localStorage.getItem('ice_forts_planner_v4')||localStorage.getItem('ice_forts_planner_v3')||localStorage.getItem('ice_forts_planner_v2');state=normalize(raw?JSON.parse(raw):null);}catch(_){state=fresh();}
+const el=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state));}catch(_){}}
+function slotLabel(k){return state.names[k]||k;}
+function enabled(k){return !!state.enabled[k];}
+function activeKeys(){return KEYS.filter(enabled);}
+function currentRound(){return state.round-1;}
+function prior(r,b){if(r<=0)return '';const stored=state.rounds[r][b].prior;return stored===null?owner(r-1,b):stored;}
+function owner(r,b){const stored=state.rounds[r][b].owner;return stored===null?prior(r,b):stored;}
+function assigned(b){return owner(currentRound(),b);}
+function prev(b){return prior(currentRound(),b);}
+function resetResults(){el('results').hidden=true;}
+function setRound(v){state.round=Math.min(12,Math.max(1,v));save();resetResults();render();}
+function setName(k,v){state.names[k]=v.trim()||k;save();resetResults();renderNames();renderTargets();renderBuildings();}
+function setEnabled(k,v){state.enabled[k]=v==='yes';save();resetResults();renderNames();renderTargets();renderBuildings();}
+function setPref(k,v){state.preferences[currentRound()][k]=v==='auto'?'auto':Number(v);save();resetResults();renderTargets();}
+function setPrior(b,v){const r=currentRound();if(!r)return;const inherited=owner(r-1,b);state.rounds[r][b].prior=v===inherited?null:v;save();resetResults();renderBuildings();}
+function resetPrior(b){state.rounds[currentRound()][b].prior=null;save();resetResults();renderBuildings();}
+function setOwner(b,v){const r=currentRound();state.rounds[r][b].owner=v===prior(r,b)?null:v;save();resetResults();renderBuildings();}
+function resetOwner(b){state.rounds[currentRound()][b].owner=null;save();resetResults();renderBuildings();}
+function options(selected){const available=activeKeys();const missing=selected&&!enabled(selected)?`<option value="${selected}" selected>⚠ ${esc(slotLabel(selected))} (${selected}) · 已设为无</option>`:'';
+ return '<option value="">— 无 —</option>'+missing+available.map(k=>`<option value="${k}" ${selected===k?'selected':''}>${esc(slotLabel(k))} (${k})</option>`).join('');}
+function renderNames(){el('activeCount').textContent=`已启用 ${activeKeys().length} / 15 盟`;
+ el('names').innerHTML=KEYS.map(k=>`<div class="nameBox ${MAJOR.has(k)?'major':''} ${enabled(k)?'':'isOff'}"><label for="n_${k}">${k}盟</label><div class="nameRow"><input id="n_${k}" maxlength="70" value="${esc(state.names[k])}" onchange="setName('${k}',this.value)" aria-label="${k}盟名称"><select aria-label="${k}盟有无" onchange="setEnabled('${k}',this.value)"><option value="yes" ${enabled(k)?'selected':''}>有</option><option value="no" ${enabled(k)?'':'selected'}>无</option></select></div></div>`).join('');}
+function renderTargets(){const p=state.preferences[currentRound()];el('targets').innerHTML=activeKeys().map(k=>`<div class="targetItem ${MAJOR.has(k)?'major':''}"><div class="targetName ${MAJOR.has(k)?'major':''}" title="${esc(slotLabel(k))}">${esc(slotLabel(k))} (${k})</div><select aria-label="${k}盟目标时间" onchange="setPref('${k}',this.value)">${MAJOR.has(k)?'':`<option value="auto" ${p[k]==='auto'?'selected':''}>自动安排</option>`}${TIMES.map((t,i)=>`<option value="${i}" ${p[k]===i?'selected':''}>${t}</option>`).join('')}</select></div>`).join('');}
+function renderBuildings(){const r=currentRound();el('buildings').innerHTML=BUILDINGS.map((b,i)=>{const inherited=r?owner(r-1,b.id):'';const previous=prev(b.id),now=assigned(b.id);const pManual=r&&state.rounds[r][b.id].prior!==null;const oManual=state.rounds[r][b.id].owner!==null;return `${(i===0||i===12)?`<tr class="groupRow"><th colspan="3">${i===0?'堡垒（12）':'要塞（4）'}</th></tr>`:''}<tr><td>${b.name}</td><td>${r?`<div class="selectWrap"><select class="${previous&&!enabled(previous)?'inactiveOwner':''}" aria-label="${b.name}上期占领" onchange="setPrior('${b.id}',this.value)">${options(previous)}</select><button class="reset ${pManual?'':'hidden'}" aria-label="恢复${b.name}上期自动同步" title="恢复自动同步" onclick="resetPrior('${b.id}')">↺</button></div>`:'<span class="baseEmpty">— 首期 —</span>'}</td><td><div class="selectWrap"><select class="${now&&!enabled(now)?'inactiveOwner':''}" aria-label="${b.name}本期占领" onchange="setOwner('${b.id}',this.value)">${options(now)}</select><button class="reset ${oManual?'':'hidden'}" aria-label="恢复${b.name}本期自动同步" title="恢复自动同步" onclick="resetOwner('${b.id}')">↺</button></div></td></tr>`;}).join('');}
+function render(){el('roundSelect').innerHTML=Array.from({length:12},(_,i)=>`<option value="${i+1}" ${state.round===i+1?'selected':''}>第 ${i+1} 期</option>`).join('');renderNames();renderTargets();renderBuildings();}
+function chooseSchedule(){const active=activeKeys(),counts=Object.fromEntries(active.map(k=>[k,0]));for(const b of BUILDINGS){const o=assigned(b.id);if(o&&enabled(o))counts[o]++;}
+ const chosen={},loads=[0,0,0,0,0],majorUsed=new Set();const p=state.preferences[currentRound()];
+ for(const k of active)if(p[k]!=='auto'){const index=Number(p[k]);chosen[k]=index;loads[index]+=counts[k];if(MAJOR.has(k)&&counts[k])majorUsed.add(index);}
+ const floating=active.filter(k=>!MAJOR.has(k)&&p[k]==='auto').sort((a,b)=>counts[b]-counts[a]||KEYS.indexOf(a)-KEYS.indexOf(b));
+ for(const k of floating){const possible=[0,1,2,3,4].sort((a,b)=>Number(majorUsed.has(a))-Number(majorUsed.has(b))||loads[a]-loads[b]||a-b);chosen[k]=possible[0];loads[chosen[k]]+=counts[k];}
+ return chosen;
+}
+function optimize(kind){const all=BUILDINGS.filter(b=>b.kind===kind),active=new Map(),regs=new Map(all.map(b=>[b.id,new Map()]));
+ // 上期占领自动报名，独立于本期归属
+ for(const b of all){const p=prev(b.id);if(p&&enabled(p))regs.get(b.id).set(p,'自动');}
+ // 归属盟先锁定其本期报名，再允许外援
+ for(const k of activeKeys()){const required=all.filter(b=>assigned(b.id)===k&&!regs.get(b.id).has(k));if(required.length){const first=required[0];regs.get(first.id).set(k,'归属');active.set(k,first.id);}}
+ // 用剩余名额，先保障大盟所占建筑，后保障小盟
+ const needs=all.filter(b=>assigned(b.id)&&enabled(assigned(b.id))&&regs.get(b.id).has(assigned(b.id))&&regs.get(b.id).size<2)
+  .sort((a,b)=>Number(MAJOR.has(assigned(b.id)))-Number(MAJOR.has(assigned(a.id)))||BUILDINGS.indexOf(a)-BUILDINGS.indexOf(b));
+ const order=[...activeKeys().filter(k=>!MAJOR.has(k)),...activeKeys().filter(k=>MAJOR.has(k))];
+ for(const b of needs){const helper=order.find(k=>!active.has(k)&&!regs.get(b.id).has(k));if(helper){active.set(helper,b.id);regs.get(b.id).set(helper,'辅助');}}
+ return regs;
+}
+function votes(target,i,total){if(target===null||target===undefined)return [0,1,2];const others=[0,1,2,3,4].filter(j=>j!==target);let extra;
+ if(total===1)extra=[others[0],others[1]];else if(total===2)extra=i===0?[others[0],others[1]]:[others[2],others[3]];else extra=[others[(2*i)%4],others[(2*i+1)%4]];
+ return [target,...extra].sort((a,b)=>a-b);
+}
+function generate(){const schedule=chooseSchedule(),regs={F:optimize('F'),S:optimize('S')};return BUILDINGS.map(b=>{
+ const assignedOwner=assigned(b.id),target=assignedOwner&&enabled(assignedOwner)?schedule[assignedOwner]:null,registers=[...regs[b.kind].get(b.id).entries()],tally=[0,0,0,0,0];
+ const ballots=registers.map(([k,mode],i)=>{const picked=votes(target,i,registers.length);for(const t of picked)tally[t]++;return {k,mode,picked};});
+ const participates=!!assignedOwner&&enabled(assignedOwner)&&regs[b.kind].get(b.id).has(assignedOwner);
+ const confirmed=participates&&tally[target]>Math.max(...tally.filter((_,i)=>i!==target));
+ return {b,assignedOwner,target,ballots,confirmed,participates};
+ });}
+function calculate(scroll){const plan=generate();window.lastPlan=plan;showPlan(plan);showStatuses(plan);el('results').hidden=false;if(scroll)el('results').scrollIntoView({behavior:'smooth',block:'start'});}
+function showPlan(plan){const list=[];for(const k of activeKeys()){const rows=plan.flatMap(x=>x.ballots.filter(v=>v.k===k).map(v=>({b:x.b,picked:v.picked})));if(!rows.length)list.push(`<tr class="${MAJOR.has(k)?'major':''}"><td>${esc(slotLabel(k))} (${k})</td><td class="fine">—</td><td class="fine">—</td></tr>`);else for(const [i,r] of rows.entries())list.push(`<tr class="${MAJOR.has(k)?'major':''}"><td>${i===0?`${esc(slotLabel(k))} (${k})`:''}</td><td>${r.b.name}</td><td>${r.picked.map(j=>TIMES[j]).join(' / ')}</td></tr>`);}el('planRows').innerHTML=list.join('');}
+function showStatuses(plan){const schedule=chooseSchedule(),keys=activeKeys(),byOwner=Object.fromEntries(keys.map(k=>[k,plan.filter(o=>o.assignedOwner===k)]));const yes=[],no=[];
+ for(const k of keys){const items=byOwner[k],label=`${esc(slotLabel(k))} (${k})`,time=TIMES[schedule[k]];
+  if(items.length&&items.every(o=>o.confirmed))yes.push(`<div class="statusItem"><span class="statusName">${label}</span><span class="statusTime">${time}</span></div>`);
+  else{let issues=[];if(!items.length)issues=['未分配建筑'];else for(const o of items.filter(v=>!v.confirmed))issues.push(`${o.b.name}·${o.participates?'时间未确认':'归属报名受限'}`);no.push(`<div class="statusItem"><span class="statusName">${label}</span><span class="reasons">${items.length?`${time} · `:''}${esc(issues.join('、'))}</span></div>`);}
+ }
+ // 未设置归属或归属盟已停用的建筑不得静默忽略，归入不确定结果。
+ for(const o of plan.filter(v=>!v.assignedOwner||!enabled(v.assignedOwner))){const message=o.assignedOwner?`${o.b.name} · ${slotLabel(o.assignedOwner)} (${o.assignedOwner}) 已设为无`:`${o.b.name} · 未指定归属盟`;
+  no.push(`<div class="statusItem"><span class="statusName">${esc(o.b.name)}</span><span class="reasons">${esc(message.split(' · ')[1])}</span></div>`);
+ }
+ el('confirmed').innerHTML=yes.join('')||'<div class="empty">—</div>';el('uncertain').innerHTML=no.join('')||'<div class="empty">—</div>';el('confirmedCount').textContent=yes.length;el('uncertainCount').textContent=no.length;
+}
+function download(filename,content,mime){const a=document.createElement('a'),url=URL.createObjectURL(new Blob([content],{type:mime}));a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function exportConfig(){download('堡垒要塞报名配置_12期.json',JSON.stringify(state,null,2),'application/json;charset=utf-8');}
+function importConfig(e){const file=e.target.files?.[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);if(!Array.isArray(parsed.rounds)||parsed.rounds.length!==12||!parsed.names)throw Error('文件格式不正确');state=normalize(parsed);save();resetResults();render();}catch(ex){alert('导入失败：'+ex.message);}};reader.readAsText(file);e.target.value='';}
+function planText(){const out=[`第${state.round}期｜报名清单`];const plan=window.lastPlan||generate();for(const k of activeKeys()){const entries=plan.flatMap(o=>o.ballots.filter(v=>v.k===k).map(v=>`${o.b.name}：${v.picked.map(i=>TIMES[i]).join('、')}`));out.push(`${slotLabel(k)} (${k})：${entries.join('；')||'—'}`);}out.push('','确认时间盟：'+activeKeys().filter(k=>{const a=plan.filter(v=>v.assignedOwner===k);return a.length&&a.every(v=>v.confirmed);}).map(slotLabel).join('、'));out.push('不确定时间盟：'+activeKeys().filter(k=>{const a=plan.filter(v=>v.assignedOwner===k);return !a.length||a.some(v=>!v.confirmed);}).map(slotLabel).join('、'));const bad=plan.filter(v=>!v.assignedOwner||!enabled(v.assignedOwner));if(bad.length)out.push('缺少有效归属：'+bad.map(v=>`${v.b.name} (${v.assignedOwner?slotLabel(v.assignedOwner)+' 已设为无':'未指定归属'})`).join('、'));return out.join('\n');}
+function copyPlan(){const t=planText();if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>fallbackCopy(t));else fallbackCopy(t);}
+function fallbackCopy(t){const tmp=document.createElement('textarea');tmp.value=t;document.body.appendChild(tmp);tmp.select();document.execCommand('copy');tmp.remove();alert('已复制');}
+save();render();
+</script>
+</body>
+</html>
